@@ -24,8 +24,8 @@ Router::any('year/(:num)/(:num)', 'Controllers\Movies@year');
 Router::any('actor/(:any)', 'Controllers\Movies@actor');
 Router::any('actor/(:any)/(:num)', 'Controllers\Movies@actor');
 
-Router::any('country/(:any)', 'Controllers\Movies@country');
-Router::any('country/(:any)/(:num)', 'Controllers\Movies@country');
+Router::any('origin/(:any)', 'Controllers\Movies@country');
+Router::any('origin/(:any)/(:num)', 'Controllers\Movies@country');
 
 Router::any('rating/(:any)', 'Controllers\Movies@rating');
 Router::any('rating/(:any)/(:num)', 'Controllers\Movies@rating');
