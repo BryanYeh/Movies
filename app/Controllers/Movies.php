@@ -24,7 +24,7 @@ class Movies extends Controller
         $data['page']=$page;
 
         $movies = new MovieList();
-        $movieList = $movies->getMovieList();
+        $movieList = $movies->getMovieList($page);
 
         $data['movies'] = $movieList;
 //        View::renderTemplate('header', $data);
@@ -37,7 +37,7 @@ class Movies extends Controller
         $data['page'] = $page;
         $data['year'] = $year;
         $movies = new MovieList();
-        $movieList = $movies->getYearList($year);
+        $movieList = $movies->getYearList($year,$page);
 
         $data['movies'] = $movieList;
 //        View::renderTemplate('header', $data);
@@ -45,12 +45,12 @@ class Movies extends Controller
 //        View::renderTemplate('footer', $data);
     }
 
-    public function actor($actor="john-doe",$page=1)
+    public function actor($actor="bad-ass",$page=1)
     {
         $data['page'] = $page;
         $data['actor'] = $actor;
         $movies = new MovieList();
-        $movieList = $movies->getMovieList();
+        $movieList = $movies->getActorList($actor,$page);
 
         $data['movies'] = $movieList;
 //        View::renderTemplate('header', $data);
@@ -63,7 +63,7 @@ class Movies extends Controller
         $data['page'] = $page;
         $data['country'] = $country;
         $movies = new MovieList();
-        $movieList = $movies->getMovieList();
+        $movieList = $movies->getCountryList($country,$page);
 
         $data['movies'] = $movieList;
 //        View::renderTemplate('header', $data);
@@ -76,7 +76,7 @@ class Movies extends Controller
         $data['page'] = $page;
         $data['rating'] = $rating;
         $movies = new MovieList();
-        $movieList = $movies->getMovieList();
+        $movieList = $movies->getRatingList($rating,$page);
 
         $data['movies'] = $movieList;
 //        View::renderTemplate('header', $data);
@@ -89,7 +89,7 @@ class Movies extends Controller
         $data['page'] = $page;
         $data['language'] = $language;
         $movies = new MovieList();
-        $movieList = $movies->getMovieList();
+        $movieList = $movies->getLanguageList($language,$page);
 
         $data['movies'] = $movieList;
 //        View::renderTemplate('header', $data);
