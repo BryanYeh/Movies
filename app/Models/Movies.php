@@ -113,7 +113,7 @@ class Movies extends Model
 
     /**
      * Gets movies by language
-     * 
+     *
      * @param string $language language with hyphens not spaces
      * @param $page current page number
      *
