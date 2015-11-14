@@ -9,6 +9,10 @@ use Core\Model;
  */
 class Movies extends Model
 {
+    /*
+     * TODO: all get movie functions needs to use page and limit it for use of pages
+     */
+
     /**
      * Call the parent construct
      */
@@ -17,19 +21,23 @@ class Movies extends Model
     }
 
     /**
-     * Gets and returns list of movies
-     * $page: current page number
-     * returns: list of movies
+     * Gets movies from database
+     *
+     * @param int $page current page number
+     *
+     * @return list of movies
      */
     public function getMovieList($page){
         return $this->db->select('SELECT * FROM '.PREFIX.'movie');
     }
 
     /**
-     * Gets and return list of movies by year
-     * $year: year ex. 1999
-     * $page: current page number
-     * returns: list of movies
+     * Gets movies by year
+     *
+     * @param int $year year
+     * @param int $page current page number
+     *
+     * @returns list of movies
      */
     public function getYearList($year,$page){
         return $this->db->select('SELECT '.PREFIX.'movie.title,
@@ -44,10 +52,12 @@ class Movies extends Model
     }
 
     /**
-     * Gets and returns list of movies with actor
-     * $actor: actor name with hyphens no spaces ex. john-doe
-     * $page: current page number
-     * returns: list of movies
+     * Gets movies by actor
+     *
+     * @param string $actor actor name hypens instead of spaces
+     * @param int $page current page number
+     *
+     * @return list of movies
      */
     public function getActorList($actor,$page){
         return $this->db->select('SELECT '.PREFIX.'movie.title,
@@ -62,10 +72,12 @@ class Movies extends Model
     }
 
     /**
-     * Gets and returns list of movies in the country
-     * $country: country of origin with hyphens no spaces ex. united-states-of-america
-     * $page: current page number
-     * returns: list of movies
+     * Gets movies by country of origin
+     *
+     * @param string $country country of origin use hypens instead of spaces
+     * @param int $page current page number
+     *
+     * @returns list of movies
      */
     public function getCountryList($country,$page){
         return $this->db->select('SELECT '.PREFIX.'movie.title,
@@ -80,10 +92,12 @@ class Movies extends Model
     }
 
     /**
-     * Gets and returns list of movies with rating
-     * $rating: rating with hyphens no spaces ex. pg13
-     * $page: current page number
-     * returns: list of movies
+     * Gets movies by ratings
+     *
+     * @param string $rating rating with hypens not spaces
+     * @param int $page current page number
+     *
+     * @return list of movies
      */
     public function getRatingList($rating,$page){
         return $this->db->select('SELECT '.PREFIX.'movie.title,
@@ -98,10 +112,12 @@ class Movies extends Model
     }
 
     /**
-     * Gets and returns list of movies with language
-     * $language: language with hyphens no spaces ex. span-glish
-     * $page: current page number
-     * returns: list of movies
+     * Gets movies by language
+     * 
+     * @param string $language language with hyphens not spaces
+     * @param $page current page number
+     *
+     * @return list of movies
      */
     public function getLanguageList($language,$page){
         return $this->db->select('SELECT '.PREFIX.'movie.title,
