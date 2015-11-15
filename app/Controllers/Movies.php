@@ -27,11 +27,13 @@ class Movies extends Controller
         $data['page']=$page;
 
         $movies = new MovieList();
+
         $movieList = $movies->getMovieList($page);
 
         if(sizeof($movieList)<1)
             Error::error404();
 
+        $data['pages']=$movies->getMoviePages();
         $data['movies'] = $movieList;
 
         $this->renderViews($data);
@@ -51,12 +53,15 @@ class Movies extends Controller
         $data['page'] = $page;
         $data['year'] = $year;
 
+
         $movies = new MovieList();
+
         $movieList = $movies->getYearList($year,$page);
 
         if(sizeof($movieList)<1)
             Error::error404();
 
+        $data['pages'] = $movies->getYearPages($year);
         $data['movies'] = $movieList;
 
         $this->renderViews($data);
@@ -83,7 +88,9 @@ class Movies extends Controller
         if(sizeof($movieList)<1)
             Error::error404();
 
+        $data['pages'] = $movies->getActorPages($actor);
         $data['movies'] = $movieList;
+
 
         $this->renderViews($data);
     }
@@ -108,6 +115,8 @@ class Movies extends Controller
 
         if(sizeof($movieList)<1)
             Error::error404();
+
+        $data['pages'] = $movies->getCountryPages($country);
         $data['movies'] = $movieList;
 
         $this->renderViews($data);
@@ -134,6 +143,7 @@ class Movies extends Controller
         if(sizeof($movieList)<1)
             Error::error404();
 
+        $data['pages'] = $movies->getRatingPages($rating);
         $data['movies'] = $movieList;
 
         $this->renderViews($data);
@@ -160,6 +170,7 @@ class Movies extends Controller
         if(sizeof($movieList)<1)
             Error::error404();
 
+        $data['pages'] = $movies->getLanguagePages($language);
         $data['movies'] = $movieList;
 
         $this->renderViews($data);
