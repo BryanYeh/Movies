@@ -40,4 +40,15 @@ $hooks = Hooks::get();
 $hooks->run('afterBody');
 ?>
 
+<!--TODO:navbar-->
+<nav class="navbar">
+	<ul>
+		<li><a href="<?php echo DIR;?>movies/">Movies</a></li>
+		<li><a href="<?php echo DIR;?>genre/#">Genre</a></li>
+		<li><a href="<?php echo DIR;?>langugage/#">Language</a></li>
+		<li><a href="<?php echo DIR;?>origin/#">Country of Origin</a></li>
+		<li><a href="<?php echo DIR;?>year/#">Year</a></li>
+		<li><a href="<?php echo DIR;?>rating/#">Rating</a></li>
+	</ul>
+</nav>
 <div class="container">

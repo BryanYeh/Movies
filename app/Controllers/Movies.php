@@ -182,7 +182,7 @@ class Movies extends Controller
      * @param array $data array of data
      */
     private function renderViews($data){
-//        View::renderTemplate('header', $data);
+        View::renderTemplate('header', $data);
         View::render('movies/movies', $data);
 //        View::renderTemplate('footer', $data);
     }
