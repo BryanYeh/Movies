@@ -1,10 +1,10 @@
 <?php
 namespace Controllers;
 
-use Core\View;
-use Core\Controller;
-use Models\Movies as MovieList;
-use Core\Error;
+use Core\View,
+    Core\Controller,
+    Models\Movies as MovieList,
+    Core\Error;
 
 class Movies extends Controller
 {
@@ -45,7 +45,7 @@ class Movies extends Controller
      */
     public function year($year,$page=1)
     {
-        if(intval($year)<1000 || intval($year)>9999 ||intval($page)<1)
+        if(intval($year)<1500 || intval($year)>intval(date('Y'))+1 ||intval($page)<1)
             Error::error404();
 
         $data['page'] = $page;
