@@ -70,6 +70,7 @@ class Movies extends Controller
      */
     public function actor($actor,$page=1)
     {
+        $actor = str_replace(" ", "", strip_tags($actor));
         if($actor=="" || intval($page)<1)
             Error::error404();
 
@@ -95,6 +96,7 @@ class Movies extends Controller
      */
     public function country($country,$page=1)
     {
+        $country = str_replace(" ", "", strip_tags($country));
         if($country=="" || intval($page)<1)
             Error::error404();
 
@@ -119,6 +121,7 @@ class Movies extends Controller
      */
     public function rating($rating,$page=1)
     {
+        $rating = str_replace(" ", "", strip_tags($rating));
         if($rating=="" || intval($page)<1)
             Error::error404();
 
@@ -144,6 +147,7 @@ class Movies extends Controller
      */
     public function language($language,$page=1)
     {
+        $language = str_replace(" ", "", strip_tags($language));
         if($language=="" || intval($page)<1)
             Error::error404();
 

@@ -9,10 +9,6 @@ use Core\Model;
  */
 class Movies extends Model
 {
-    /*
-     * TODO: all get movie functions needs to use page and limit it for use of pages
-     */
-
     /**
      * Call the parent construct
      */
@@ -28,7 +24,7 @@ class Movies extends Model
      * @return list of movies
      */
     public function getMovieList($page){
-        return $this->db->select('SELECT * FROM '.PREFIX.'movie');
+        return $this->db->select('SELECT * FROM '.PREFIX.'movie LIMIT '.($page*20-20).',20');
     }
 
     /**
@@ -48,7 +44,8 @@ class Movies extends Model
                                     ON  '.PREFIX.'movie.id =  '.PREFIX.'movie_year.movie_id
                                     INNER JOIN '.PREFIX.'yr
                                     ON '.PREFIX.'yr.id = '.PREFIX.'movie_year.year_id
-                                    WHERE  '.PREFIX.'yr.yr=:yr',array(":yr"=>$year));
+                                    WHERE  '.PREFIX.'yr.yr=:yr
+                                    LIMIT '.($page*20-20).',20',array(":yr"=>$year));
     }
 
     /**
@@ -68,7 +65,8 @@ class Movies extends Model
                                     ON  '.PREFIX.'movie.id =  '.PREFIX.'movie_actor.movie_id
                                     INNER JOIN '.PREFIX.'actor
                                     ON '.PREFIX.'actor.id = '.PREFIX.'movie_actor.actor_id
-                                    WHERE  '.PREFIX.'actor.actorseo=:actor',array(":actor"=>$actor));
+                                    WHERE  '.PREFIX.'actor.actorseo=:actor
+                                    LIMIT '.($page*20-20).',20' ,array(":actor"=>$actor));
     }
 
     /**
@@ -88,7 +86,8 @@ class Movies extends Model
                                     ON  '.PREFIX.'movie.id =  '.PREFIX.'movie_origin.movie_id
                                     INNER JOIN '.PREFIX.'origin
                                     ON '.PREFIX.'origin.id = '.PREFIX.'movie_origin.origin_id
-                                    WHERE  '.PREFIX.'origin.countryseo=:country',array(":country"=>$country));
+                                    WHERE  '.PREFIX.'origin.countryseo=:country
+                                    LIMIT '.($page*20-20).',20' ,array(":country"=>$country));
     }
 
     /**
@@ -108,7 +107,8 @@ class Movies extends Model
                                     ON  '.PREFIX.'movie.id =  '.PREFIX.'movie_rating.movie_id
                                     INNER JOIN '.PREFIX.'rating
                                     ON '.PREFIX.'rating.id = '.PREFIX.'movie_rating.rating_id
-                                    WHERE  '.PREFIX.'rating.seorating=:rating',array(":rating"=>$rating));
+                                    WHERE  '.PREFIX.'rating.seorating=:rating
+                                    LIMIT '.($page*20-20).',20' ,array(":rating"=>$rating));
     }
 
     /**
@@ -128,6 +128,7 @@ class Movies extends Model
                                     ON  '.PREFIX.'movie.id =  '.PREFIX.'movie_languages.movie_id
                                     INNER JOIN '.PREFIX.'language
                                     ON '.PREFIX.'language.id = '.PREFIX.'movie_languages.language_id
-                                    WHERE  '.PREFIX.'language.languageseo=:language',array(":language"=>$language));
+                                    WHERE  '.PREFIX.'language.languageseo=:language
+                                    LIMIT '.($page*20-20).',20' ,array(":language"=>$language));
     }
 }
