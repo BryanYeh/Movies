@@ -44,11 +44,12 @@ $hooks->run('afterBody');
 <nav class="navbar">
 	<ul>
 		<li><a href="<?php echo DIR;?>movies/">Movies</a></li>
-		<li><a href="<?php echo DIR;?>genre/#">Genre</a></li>
-		<li><a href="<?php echo DIR;?>langugage/#">Language</a></li>
-		<li><a href="<?php echo DIR;?>origin/#">Country of Origin</a></li>
-		<li><a href="<?php echo DIR;?>year/#">Year</a></li>
-		<li><a href="<?php echo DIR;?>rating/#">Rating</a></li>
+		<li><a href="<?php echo DIR;?>actors">Actor</a></li>
+		<li><a href="<?php echo DIR;?>genres">Genre</a></li>
+		<li><a href="<?php echo DIR;?>languages">Language</a></li>
+		<li><a href="<?php echo DIR;?>origin">Country of Origin</a></li>
+		<li><a href="<?php echo DIR;?>years">Year</a></li>
+		<li><a href="<?php echo DIR;?>ratings">Rating</a></li>
 	</ul>
 </nav>
 <div class="container">
