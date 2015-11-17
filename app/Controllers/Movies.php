@@ -177,8 +177,31 @@ class Movies extends Controller
 
     }
 
-    /*
+    /**
+     * Define movie
+     *
+     * @param string $movie movie seo term
+     */
+    public function movie($movie){
+        $movie = str_replace(" ", "", strip_tags($movie));
+        if($movie=="")
+            Error::error404();
+
+        $movies = new MovieList();
+        $info = $movies->getMovieInfo($movie);
+
+        //if(sizeof($info)<1)
+         //   Error::error404();
+
+        $data['title']=$movie;
+        $data['info'] = $info;
+        $this->renderViews($data);
+//
+    }
+
+    /**
      * Renders views only for this controller
+     *
      * @param array $data array of data
      */
     private function renderViews($data){

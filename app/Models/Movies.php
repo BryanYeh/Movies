@@ -9,6 +9,7 @@ use Core\Model;
  */
 class Movies extends Model
 {
+    
     /**
      * Call the parent construct
      */
@@ -100,12 +101,14 @@ class Movies extends Model
                                     WHERE  ' . PREFIX . 'actor.actorseo=:actor
                                     LIMIT ' . ($page * 20 - 20) . ',20', array(":actor" => $actor));
     }
+
     /*
      * Gets number of pages for movies by actor
      *
      * @return int number of pages total
      */
-    public function getActorPages($actor){
+    public function getActorPages($actor)
+    {
         return intval(ceil(sizeof($this->db->select('SELECT ' . PREFIX . 'movie.title,
                                           ' . PREFIX . 'movie.description,
                                           ' . PREFIX . 'movie.seoname
@@ -138,12 +141,14 @@ class Movies extends Model
                                     WHERE  ' . PREFIX . 'origin.countryseo=:country
                                     LIMIT ' . ($page * 20 - 20) . ',20', array(":country" => $country));
     }
+
     /*
      * Gets number of pages for movies by country
      *
      * @return int number of pages total
      */
-    public function getCountryPages($country){
+    public function getCountryPages($country)
+    {
         return intval(ceil(sizeof($this->db->select('SELECT ' . PREFIX . 'movie.title,
                                           ' . PREFIX . 'movie.description,
                                           ' . PREFIX . 'movie.seoname
@@ -176,12 +181,14 @@ class Movies extends Model
                                     WHERE  ' . PREFIX . 'rating.seorating=:rating
                                     LIMIT ' . ($page * 20 - 20) . ',20', array(":rating" => $rating));
     }
+
     /*
      * Gets number of pages for movies by rating
      *
      * @return int number of pages total
      */
-    public function getRatingPages($rating){
+    public function getRatingPages($rating)
+    {
         return intval(ceil(sizeof($this->db->select('SELECT ' . PREFIX . 'movie.title,
                                           ' . PREFIX . 'movie.description,
                                           ' . PREFIX . 'movie.seoname
@@ -214,12 +221,14 @@ class Movies extends Model
                                     WHERE  ' . PREFIX . 'language.languageseo=:language
                                     LIMIT ' . ($page * 20 - 20) . ',20', array(":language" => $language));
     }
+
     /*
      * Gets number of pages for movies by rating
      *
      * @return int number of pages total
      */
-    public function getLanguagePages($language){
+    public function getLanguagePages($language)
+    {
         return intval(ceil(sizeof($this->db->select('SELECT ' . PREFIX . 'movie.title,
                                           ' . PREFIX . 'movie.description,
                                           ' . PREFIX . 'movie.seoname
@@ -232,4 +241,56 @@ class Movies extends Model
     }
 
 
+    /**
+     * Gets movie information
+     *
+     * @param string movie movie seo
+     *
+     * @return list of movie info
+     */
+    public function getMovieInfo($movie)
+    {
+
+        return $this->db->select('SELECT
+                ' . PREFIX . 'movie.title AS movietitle,
+                ' . PREFIX . 'movie.description AS moviedescription,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'actor.actor) AS actors,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'actor.actorseo) AS actorsseo,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'genre.genre) AS genres,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'genre.seogenre) AS genresseo,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'language.lang) AS languagess,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'language.languageseo) AS langsseo,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'origin.country) AS origins,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'origin.countryseo) AS originsseo,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'rating.rating) AS ratings,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'rating.seorating) AS ratingsseo,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'rating.description) AS ratingdescription,
+                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'yr.yr) AS yr
+                FROM `movie`
+                INNER JOIN ' . PREFIX . 'movie_actor
+                ON ' . PREFIX . 'movie.id = ' . PREFIX . 'movie_actor.movie_id
+                INNER JOIN ' . PREFIX . 'actor
+                ON ' . PREFIX . 'actor.id = ' . PREFIX . 'movie_actor.actor_id
+                INNER JOIN ' . PREFIX . 'movie_genre
+                ON ' . PREFIX . 'movie.id = ' . PREFIX . 'movie_genre.movie_id
+                INNER JOIN ' . PREFIX . 'genre
+                ON ' . PREFIX . 'genre.id = ' . PREFIX . 'movie_genre.genre_id
+                INNER JOIN ' . PREFIX . 'movie_languages
+                ON ' . PREFIX . 'movie.id = ' . PREFIX . 'movie_languages.movie_id
+                INNER JOIN ' . PREFIX . 'language
+                ON ' . PREFIX . 'language.id = ' . PREFIX . 'movie_languages.language_id
+                INNER JOIN ' . PREFIX . 'movie_origin
+                ON ' . PREFIX . 'movie.id = ' . PREFIX . 'movie_origin.movie_id
+                INNER JOIN ' . PREFIX . 'origin
+                ON ' . PREFIX . 'origin.id = ' . PREFIX . 'movie_origin.origin_id
+                INNER JOIN ' . PREFIX . 'movie_rating
+                ON ' . PREFIX . 'movie.id = ' . PREFIX . 'movie_rating.movie_id
+                INNER JOIN ' . PREFIX . 'rating
+                ON ' . PREFIX . 'rating.id = ' . PREFIX . 'movie_rating.rating_id
+                INNER JOIN ' . PREFIX . 'movie_year
+                ON ' . PREFIX . 'movie.id = ' . PREFIX . 'movie_year.movie_id
+                INNER JOIN ' . PREFIX . 'yr
+                ON ' . PREFIX . 'yr.id = ' . PREFIX . 'movie_year.year_id
+                WHERE ' . PREFIX . 'movie.seoname LIKE :movie', array(":movie"=> $movie));
+    }
 }

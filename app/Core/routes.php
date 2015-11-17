@@ -10,13 +10,14 @@
 /** Create alias for Router. */
 use Core\Router;
 use Helpers\Hooks;
-
+Router::any('movie/(:any)','Controllers\Movies@movie');
 /** Define routes. */
 Router::any('', 'Controllers\Welcome@index');
 Router::any('subpage', 'Controllers\Welcome@subPage');
 
 Router::any('movies', 'Controllers\Movies@index');
 Router::any('movies/(:num)', 'Controllers\Movies@index');
+
 
 Router::any('year/(:num)', 'Controllers\Movies@year');
 Router::any('year/(:num)/(:num)', 'Controllers\Movies@year');
@@ -32,6 +33,8 @@ Router::any('rating/(:any)/(:num)', 'Controllers\Movies@rating');
 
 Router::any('language/(:any)', 'Controllers\Movies@language');
 Router::any('language/(:any)/(:num)', 'Controllers\Movies@language');
+
+
 
 /** Module routes. */
 $hooks = Hooks::get();
