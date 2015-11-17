@@ -9,13 +9,59 @@ use Core\Model;
  */
 class Movies extends Model
 {
-    
+    private $moviesql, $yearsql, $actorsql, $countrysql, $languagesql, $ratingsql;
+
     /**
      * Call the parent construct
      */
     function __construct()
     {
         parent::__construct();
+        $this->moviesql = 'SELECT * FROM ' . PREFIX . 'movie';
+        $this->yearsql = 'SELECT ' . PREFIX . 'movie.title,
+                       ' . PREFIX . 'movie.description,
+                       ' . PREFIX . 'movie.seoname
+                       FROM  ' . PREFIX . 'movie_year
+                       INNER JOIN  ' . PREFIX . 'movie
+                       ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_year.movie_id
+                       INNER JOIN ' . PREFIX . 'yr
+                       ON ' . PREFIX . 'yr.id = ' . PREFIX . 'movie_year.year_id
+                       WHERE  ' . PREFIX . 'yr.yr=:yr';
+        $this->actorsql = 'SELECT ' . PREFIX . 'movie.title,
+                                          ' . PREFIX . 'movie.description,
+                                          ' . PREFIX . 'movie.seoname
+                                    FROM  ' . PREFIX . 'movie_actor
+                                    INNER JOIN  ' . PREFIX . 'movie
+                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_actor.movie_id
+                                    INNER JOIN ' . PREFIX . 'actor
+                                    ON ' . PREFIX . 'actor.id = ' . PREFIX . 'movie_actor.actor_id
+                                    WHERE  ' . PREFIX . 'actor.actorseo=:actor';
+        $this->countrysql  = 'SELECT ' . PREFIX . 'movie.title,
+                                          ' . PREFIX . 'movie.description,
+                                          ' . PREFIX . 'movie.seoname
+                                    FROM  ' . PREFIX . 'movie_origin
+                                    INNER JOIN  ' . PREFIX . 'movie
+                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_origin.movie_id
+                                    INNER JOIN ' . PREFIX . 'origin
+                                    ON ' . PREFIX . 'origin.id = ' . PREFIX . 'movie_origin.origin_id
+                                    WHERE  ' . PREFIX . 'origin.countryseo=:country';
+        $this->languagesql = 'SELECT ' . PREFIX . 'movie.title,
+                                          ' . PREFIX . 'movie.description,
+                                          ' . PREFIX . 'movie.seoname
+                                    FROM  ' . PREFIX . 'movie_languages
+                                    INNER JOIN  ' . PREFIX . 'movie
+                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_languages.movie_id
+                                    INNER JOIN ' . PREFIX . 'language
+                                    ON ' . PREFIX . 'language.id = ' . PREFIX . 'movie_languages.language_id
+                                    WHERE  ' . PREFIX . 'language.languageseo=:language';
+        $this->ratingsql = 'SELECT ' . PREFIX . 'movie.title,
+                                          ' . PREFIX . 'movie.description,
+                                          ' . PREFIX . 'movie.seoname
+                                    FROM  ' . PREFIX . 'movie_rating
+                                    INNER JOIN  ' . PREFIX . 'movie
+                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_rating.movie_id
+                                    INNER JOIN ' . PREFIX . 'rating
+                                    ON ' . PREFIX . 'rating.id = ' . PREFIX . 'movie_rating.rating_id';
     }
 
     /**
@@ -27,7 +73,7 @@ class Movies extends Model
      */
     public function getMovieList($page)
     {
-        return $this->db->select('SELECT * FROM ' . PREFIX . 'movie LIMIT ' . ($page * 20 - 20) . ',20');
+        return $this->db->select($this->moviesql . ' LIMIT ' . ($page * 20 - 20) . ',20');
     }
 
     /*
@@ -37,7 +83,7 @@ class Movies extends Model
      */
     public function getMoviePages()
     {
-        return intval(ceil(sizeof($this->db->select('SELECT id FROM ' . PREFIX . 'movie ')) / 20.0));
+        return intval(ceil(sizeof($this->db->select($this->moviesql)) / 20.0));
     }
 
     /**
@@ -50,16 +96,7 @@ class Movies extends Model
      */
     public function getYearList($year, $page)
     {
-        return $this->db->select('SELECT ' . PREFIX . 'movie.title,
-                                          ' . PREFIX . 'movie.description,
-                                          ' . PREFIX . 'movie.seoname
-                                    FROM  ' . PREFIX . 'movie_year
-                                    INNER JOIN  ' . PREFIX . 'movie
-                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_year.movie_id
-                                    INNER JOIN ' . PREFIX . 'yr
-                                    ON ' . PREFIX . 'yr.id = ' . PREFIX . 'movie_year.year_id
-                                    WHERE  ' . PREFIX . 'yr.yr=:yr
-                                    LIMIT ' . ($page * 20 - 20) . ',20', array(":yr" => $year));
+        return $this->db->select($this->yearsql . ' LIMIT ' . ($page * 20 - 20) . ',20', array(":yr" => $year));
     }
 
     /*
@@ -69,15 +106,7 @@ class Movies extends Model
      */
     public function getYearPages($year)
     {
-        return intval(ceil(sizeof($this->db->select('SELECT ' . PREFIX . 'movie.title,
-                                          ' . PREFIX . 'movie.description,
-                                          ' . PREFIX . 'movie.seoname
-                                    FROM  ' . PREFIX . 'movie_year
-                                    INNER JOIN  ' . PREFIX . 'movie
-                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_year.movie_id
-                                    INNER JOIN ' . PREFIX . 'yr
-                                    ON ' . PREFIX . 'yr.id = ' . PREFIX . 'movie_year.year_id
-                                    WHERE  ' . PREFIX . 'yr.yr=:yr', array(":yr" => $year))) / 20.0));
+        return intval(ceil(sizeof($this->db->select($this->yearsql, array(":yr" => $year))) / 20.0));
     }
 
     /**
@@ -90,16 +119,7 @@ class Movies extends Model
      */
     public function getActorList($actor, $page)
     {
-        return $this->db->select('SELECT ' . PREFIX . 'movie.title,
-                                          ' . PREFIX . 'movie.description,
-                                          ' . PREFIX . 'movie.seoname
-                                    FROM  ' . PREFIX . 'movie_actor
-                                    INNER JOIN  ' . PREFIX . 'movie
-                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_actor.movie_id
-                                    INNER JOIN ' . PREFIX . 'actor
-                                    ON ' . PREFIX . 'actor.id = ' . PREFIX . 'movie_actor.actor_id
-                                    WHERE  ' . PREFIX . 'actor.actorseo=:actor
-                                    LIMIT ' . ($page * 20 - 20) . ',20', array(":actor" => $actor));
+        return $this->db->select($this->actorsql.' LIMIT ' . ($page * 20 - 20) . ',20', array(":actor" => $actor));
     }
 
     /*
@@ -109,15 +129,7 @@ class Movies extends Model
      */
     public function getActorPages($actor)
     {
-        return intval(ceil(sizeof($this->db->select('SELECT ' . PREFIX . 'movie.title,
-                                          ' . PREFIX . 'movie.description,
-                                          ' . PREFIX . 'movie.seoname
-                                    FROM  ' . PREFIX . 'movie_actor
-                                    INNER JOIN  ' . PREFIX . 'movie
-                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_actor.movie_id
-                                    INNER JOIN ' . PREFIX . 'actor
-                                    ON ' . PREFIX . 'actor.id = ' . PREFIX . 'movie_actor.actor_id
-                                    WHERE  ' . PREFIX . 'actor.actorseo=:actor', array(":actor" => $actor))) / 20.0));
+        return intval(ceil(sizeof($this->db->select($this->actorsql, array(":actor" => $actor))) / 20.0));
     }
 
     /**
@@ -130,16 +142,7 @@ class Movies extends Model
      */
     public function getCountryList($country, $page)
     {
-        return $this->db->select('SELECT ' . PREFIX . 'movie.title,
-                                          ' . PREFIX . 'movie.description,
-                                          ' . PREFIX . 'movie.seoname
-                                    FROM  ' . PREFIX . 'movie_origin
-                                    INNER JOIN  ' . PREFIX . 'movie
-                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_origin.movie_id
-                                    INNER JOIN ' . PREFIX . 'origin
-                                    ON ' . PREFIX . 'origin.id = ' . PREFIX . 'movie_origin.origin_id
-                                    WHERE  ' . PREFIX . 'origin.countryseo=:country
-                                    LIMIT ' . ($page * 20 - 20) . ',20', array(":country" => $country));
+        return $this->db->select($this->countrysql.' LIMIT ' . ($page * 20 - 20) . ',20', array(":country" => $country));
     }
 
     /*
@@ -149,15 +152,7 @@ class Movies extends Model
      */
     public function getCountryPages($country)
     {
-        return intval(ceil(sizeof($this->db->select('SELECT ' . PREFIX . 'movie.title,
-                                          ' . PREFIX . 'movie.description,
-                                          ' . PREFIX . 'movie.seoname
-                                    FROM  ' . PREFIX . 'movie_origin
-                                    INNER JOIN  ' . PREFIX . 'movie
-                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_origin.movie_id
-                                    INNER JOIN ' . PREFIX . 'origin
-                                    ON ' . PREFIX . 'origin.id = ' . PREFIX . 'movie_origin.origin_id
-                                    WHERE  ' . PREFIX . 'origin.countryseo=:country', array(":country" => $country))) / 20.0));
+        return intval(ceil(sizeof($this->db->select($this->countrysql , array(":country" => $country))) / 20.0));
     }
 
     /**
@@ -170,16 +165,7 @@ class Movies extends Model
      */
     public function getRatingList($rating, $page)
     {
-        return $this->db->select('SELECT ' . PREFIX . 'movie.title,
-                                          ' . PREFIX . 'movie.description,
-                                          ' . PREFIX . 'movie.seoname
-                                    FROM  ' . PREFIX . 'movie_rating
-                                    INNER JOIN  ' . PREFIX . 'movie
-                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_rating.movie_id
-                                    INNER JOIN ' . PREFIX . 'rating
-                                    ON ' . PREFIX . 'rating.id = ' . PREFIX . 'movie_rating.rating_id
-                                    WHERE  ' . PREFIX . 'rating.seorating=:rating
-                                    LIMIT ' . ($page * 20 - 20) . ',20', array(":rating" => $rating));
+        return $this->db->select($this->ratingsql. ' LIMIT ' . ($page * 20 - 20) . ',20', array(":rating" => $rating));
     }
 
     /*
@@ -189,15 +175,7 @@ class Movies extends Model
      */
     public function getRatingPages($rating)
     {
-        return intval(ceil(sizeof($this->db->select('SELECT ' . PREFIX . 'movie.title,
-                                          ' . PREFIX . 'movie.description,
-                                          ' . PREFIX . 'movie.seoname
-                                    FROM  ' . PREFIX . 'movie_rating
-                                    INNER JOIN  ' . PREFIX . 'movie
-                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_rating.movie_id
-                                    INNER JOIN ' . PREFIX . 'rating
-                                    ON ' . PREFIX . 'rating.id = ' . PREFIX . 'movie_rating.rating_id
-                                    WHERE  ' . PREFIX . 'rating.seorating=:rating', array(":rating" => $rating))) / 20.0));
+        return intval(ceil(sizeof($this->db->select($this->ratingsql, array(":rating" => $rating))) / 20.0));
     }
 
     /**
@@ -210,16 +188,7 @@ class Movies extends Model
      */
     public function getLanguageList($language, $page)
     {
-        return $this->db->select('SELECT ' . PREFIX . 'movie.title,
-                                          ' . PREFIX . 'movie.description,
-                                          ' . PREFIX . 'movie.seoname
-                                    FROM  ' . PREFIX . 'movie_languages
-                                    INNER JOIN  ' . PREFIX . 'movie
-                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_languages.movie_id
-                                    INNER JOIN ' . PREFIX . 'language
-                                    ON ' . PREFIX . 'language.id = ' . PREFIX . 'movie_languages.language_id
-                                    WHERE  ' . PREFIX . 'language.languageseo=:language
-                                    LIMIT ' . ($page * 20 - 20) . ',20', array(":language" => $language));
+        return $this->db->select($this->language.' LIMIT ' . ($page * 20 - 20) . ',20', array(":language" => $language));
     }
 
     /*
@@ -229,15 +198,7 @@ class Movies extends Model
      */
     public function getLanguagePages($language)
     {
-        return intval(ceil(sizeof($this->db->select('SELECT ' . PREFIX . 'movie.title,
-                                          ' . PREFIX . 'movie.description,
-                                          ' . PREFIX . 'movie.seoname
-                                    FROM  ' . PREFIX . 'movie_languages
-                                    INNER JOIN  ' . PREFIX . 'movie
-                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_languages.movie_id
-                                    INNER JOIN ' . PREFIX . 'language
-                                    ON ' . PREFIX . 'language.id = ' . PREFIX . 'movie_languages.language_id
-                                    WHERE  ' . PREFIX . 'language.languageseo=:language', array(":language" => $language))) / 20.0));
+        return intval(ceil(sizeof($this->db->select($this->languagesql, array(":language" => $language))) / 20.0));
     }
 
 
@@ -291,6 +252,6 @@ class Movies extends Model
                 ON ' . PREFIX . 'movie.id = ' . PREFIX . 'movie_year.movie_id
                 INNER JOIN ' . PREFIX . 'yr
                 ON ' . PREFIX . 'yr.id = ' . PREFIX . 'movie_year.year_id
-                WHERE ' . PREFIX . 'movie.seoname LIKE :movie', array(":movie"=> $movie));
+                WHERE ' . PREFIX . 'movie.seoname LIKE :movie', array(":movie" => $movie));
     }
 }
