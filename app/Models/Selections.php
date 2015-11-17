@@ -62,4 +62,14 @@ class Selections extends Model
     {
         return $this->db->select('SELECT * FROM ' . PREFIX . 'rating');
     }
+
+    /**
+     * Gets all ratings
+     *
+     * @return list of rating
+     */
+    public function getActors()
+    {
+        return $this->db->select('SELECT * FROM ' . PREFIX . 'actor');
+    }
 }
