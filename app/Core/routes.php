@@ -11,12 +11,12 @@
 use Core\Router;
 use Helpers\Hooks;
 
-/** Define routes. */
+/** Define User routes. */
+
 Router::any('', 'Controllers\Home@index');
 
 Router::any('movies', 'Controllers\Movies@index');
 Router::any('movies/(:num)', 'Controllers\Movies@index');
-
 
 Router::any('year/(:num)', 'Controllers\Movies@year');
 Router::any('year/(:num)/(:num)', 'Controllers\Movies@year');
@@ -41,6 +41,10 @@ Router::any('languages','Controllers\Selection@language');
 Router::any('origin','Controllers\Selection@origin');
 Router::any('years','Controllers\Selection@year');
 Router::any('ratings','Controllers\Selection@rating');
+
+/** Define Admin routes. */
+Router::get('admin/movie','Controllers\admin\Movies@index');
+Router::post('admin/movie','Controllers\admin\Movies@add');
 
 /** Module routes. */
 $hooks = Hooks::get();
