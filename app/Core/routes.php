@@ -12,8 +12,7 @@ use Core\Router;
 use Helpers\Hooks;
 
 /** Define routes. */
-Router::any('', 'Controllers\Welcome@index');
-Router::any('subpage', 'Controllers\Welcome@subPage');
+Router::any('', 'Controllers\Home@index');
 
 Router::any('movies', 'Controllers\Movies@index');
 Router::any('movies/(:num)', 'Controllers\Movies@index');

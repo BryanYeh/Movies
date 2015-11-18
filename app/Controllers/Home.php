@@ -21,8 +21,9 @@ class Home extends Controller
      */
     public function index()
     {
+        $data['title'] = "home page";
         View::renderTemplate('header', $data);
-        View::render('welcome/welcome', $data);
+        View::render('movies/homepage', $data);
         View::renderTemplate('footer', $data);
     }
 }
