@@ -254,4 +254,9 @@ class Movies extends Model
                 ON ' . PREFIX . 'yr.id = ' . PREFIX . 'movie_year.year_id
                 WHERE ' . PREFIX . 'movie.seoname LIKE :movie', array(":movie" => $movie));
     }
+
+    public function insert($table,$data)
+    {
+        return $this->db->insert(PREFIX.$table,$data);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Models;
+
 use Core\Model;
 
 class Selections extends Model
@@ -71,5 +72,26 @@ class Selections extends Model
     public function getActors()
     {
         return $this->db->select('SELECT * FROM ' . PREFIX . 'actor');
+    }
+
+    /**
+     * Makes sure SEO term is unique
+     *
+     * @param string $term
+     * @param int $num
+     *
+     * @return string seo term
+     */
+    public function compareSEO($term, $num = 1)
+    {
+        $size = sizeof($this->db->select('SELECT * FROM ' . PREFIX . 'movie WHERE seoname LIKE :term', array(":term" => $term)));
+
+        if ($size > 0) {
+            $term .= '-' . $num;
+            return $this->compareSEO($term, $num++);
+        } else {
+            return $term;
+        }
+
     }
 }

@@ -1,3 +1,6 @@
+<?php
+    echo $data['success'];
+?>
 <form method="post">
     Title:
     <input type="text" name="title"><br>
@@ -9,7 +12,7 @@
     <textarea name="description"></textarea><br>
 
     Actor:
-    <select name="actor">
+    <select name="actor[]" multiple>
         <?php
         foreach ($data['actors'] as $year) {
             echo '<option value="' . $year->id . '">' . $year->actor . '</option>';
@@ -18,7 +21,7 @@
     </select><br>
 
     Genre:
-    <select name="genre">
+    <select name="genre[]" multiple>
         <?php
         foreach ($data['genres'] as $genre) {
             echo '<option value="' . $genre->id . '">' . $genre->genre . '</option>';
@@ -36,7 +39,7 @@
     </select><br>
 
     Language:
-    <select name="language">
+    <select name="language[]" multiple>
         <?php
         foreach ($data['languages'] as $language) {
             echo '<option value="' . $language->id . '">' . $language->lang . '</option>';
@@ -62,5 +65,5 @@
         ?>
     </select><br>
 
-    <button type="submit">Submit</button>
+    <button type="submit" name="submit">Submit</button>
 </form>
