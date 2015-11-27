@@ -6,6 +6,7 @@ namespace Controllers\admin;
 
 use Core\View,
     Core\Controller,
+    Core\Error,
     Models\Selections,
     Models\Movies as MMovies,
     Helpers\Url;
@@ -23,11 +24,23 @@ class Movies extends Controller
         parent::__construct();
 
         $this->selections = new Selections();
+        $this->movies = new MMovies();
     }
 
-    public function index()
+    public function index($page=1)
     {
 
+        $data['page']=$page;
+
+        $movieList = $this->movies->getMovieList($page);
+
+        if(sizeof($movieList)<1)
+            Error::error404();
+
+        $data['pages']=$this->movies->getMoviePages();
+        $data['movies'] = $movieList;
+
+        View::render('admin/movies', $data);
     }
 
     public function add()
@@ -78,7 +91,7 @@ class Movies extends Controller
             }
 
             if (empty($error)) {
-                $this->movies = new MMovies();
+
 
                 //movie
                 $post_data = array(
@@ -154,8 +167,8 @@ class Movies extends Controller
         View::render('admin/addmovie', $data);
     }
 
-    public function delete()
+    public function delete($id)
     {
-
+        $this->movies->insert('movie', ['id'=>$id]);
     }
 }

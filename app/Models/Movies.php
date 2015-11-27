@@ -259,4 +259,9 @@ class Movies extends Model
     {
         return $this->db->insert(PREFIX.$table,$data);
     }
+
+    public function remove($table, $data)
+    {
+        return $this->db->delete($table,$data);
+    }
 }

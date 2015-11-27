@@ -43,7 +43,12 @@ Router::any('years','Controllers\Selection@year');
 Router::any('ratings','Controllers\Selection@rating');
 
 /** Define Admin routes. */
+Router::any('admin/movies', 'Controllers\admin\Movies@index');
+Router::any('admin/movies/(:num)', 'Controllers\admin\Movies@index');
+
 Router::any('admin/movie/add','Controllers\admin\Movies@add');
+
+Router::post('admin/movie/delete/(:num)', 'Controllers\admin\Movies@delete');
 
 /** Module routes. */
 $hooks = Hooks::get();
