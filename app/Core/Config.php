@@ -90,7 +90,7 @@ class Config
         /**
          * Optional create a constant for the name of the site.
          */
-        define('SITETITLE', 'Movies');
+        define('SITETITLE', 'Mini IMDB');
 
         /**
          * Optionall set a site email address.

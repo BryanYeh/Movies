@@ -18,7 +18,7 @@ class Movies extends Controller
     }
 
     /**
-     * Define main movie and load views
+     * List of Movies Pages
      *
      * @param int $page page number
      */
@@ -33,7 +33,9 @@ class Movies extends Controller
         if(sizeof($movieList)<1)
             Error::error404();
 
+
         $data['pages']=$movies->getMoviePages();
+        $data['title'] = "Movies Page ".$page." of ".$data['pages'];
         $data['movies'] = $movieList;
 
         $this->renderViews($data);
@@ -178,7 +180,7 @@ class Movies extends Controller
     }
 
     /**
-     * Define movie
+     * Single Movie Page
      *
      * @param string $movie movie seo term
      */
@@ -197,7 +199,7 @@ class Movies extends Controller
         foreach($info[0] as $k => $v){
             $data[$k] = $v;
         }
-        $this->renderViews($data);
+        $this->renderViews($data,"movie");
 //
     }
 
@@ -205,10 +207,11 @@ class Movies extends Controller
      * Renders views only for this controller
      *
      * @param array $data array of data
+     * @param string $view what page to render
      */
-    private function renderViews($data){
+    private function renderViews($data,$view='movies'){
         View::renderTemplate('header', $data);
-        View::render('movies/movie', $data);
+        View::render('movies/'.$view, $data);
 //        View::renderTemplate('footer', $data);
     }
 }

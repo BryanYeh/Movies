@@ -56,7 +56,7 @@
                 <?php
                 $actor = explode(',',$data['actors']);
                 $actorseo = explode(',',$data['actorsseo']);
-                for($i = 0; $i < sizeof($languages); $i++){
+                for($i = 0; $i < sizeof($actor); $i++){
                     ?>
                     <li><a href="<?php echo DIR."actor/".$actorseo[$i];?>"><?php echo $actor[$i];?></a></li>
                     <?php
