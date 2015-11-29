@@ -225,7 +225,6 @@ class Movies extends Model
                 ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'origin.countryseo) AS originsseo,
                 ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'rating.rating) AS ratings,
                 ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'rating.seorating) AS ratingsseo,
-                ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'rating.description) AS ratingdescription,
                 ' . PREFIX . 'group_concat(DISTINCT ' . PREFIX . 'yr.yr) AS yr
                 FROM `movie`
                 INNER JOIN ' . PREFIX . 'movie_actor

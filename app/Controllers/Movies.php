@@ -190,11 +190,13 @@ class Movies extends Controller
         $movies = new MovieList();
         $info = $movies->getMovieInfo($movie);
 
-        //if(sizeof($info)<1)
-         //   Error::error404();
+        if(sizeof($info)<1)
+            Error::error404();
 
-        $data['title']=$movie;
-        $data['info'] = $info;
+        $data['title'] = $info[0]->movietitle;
+        foreach($info[0] as $k => $v){
+            $data[$k] = $v;
+        }
         $this->renderViews($data);
 //
     }
@@ -206,7 +208,7 @@ class Movies extends Controller
      */
     private function renderViews($data){
         View::renderTemplate('header', $data);
-        View::render('movies/movies', $data);
+        View::render('movies/movie', $data);
 //        View::renderTemplate('footer', $data);
     }
 }
