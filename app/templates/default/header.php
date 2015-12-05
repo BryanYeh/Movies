@@ -53,12 +53,12 @@ $hooks->run('afterBody');
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="<?php echo DIR;?>movies/">Movies</a></li>
-				<li><a href="<?php echo DIR;?>actors">Actor</a></li>
-				<li><a href="<?php echo DIR;?>genres">Genre</a></li>
-				<li><a href="<?php echo DIR;?>languages">Language</a></li>
-				<li><a href="<?php echo DIR;?>origin">Country of Origin</a></li>
-				<li><a href="<?php echo DIR;?>years">Year</a></li>
-				<li><a href="<?php echo DIR;?>ratings">Rating</a></li>
+				<li><a href="<?php echo DIR;?>actors">Actors</a></li>
+				<li><a href="<?php echo DIR;?>genres">Genres</a></li>
+				<li><a href="<?php echo DIR;?>languages">Languages</a></li>
+				<li><a href="<?php echo DIR;?>origin">Countries of Origin</a></li>
+				<li><a href="<?php echo DIR;?>years">Years</a></li>
+				<li><a href="<?php echo DIR;?>ratings">Ratings</a></li>
 			</ul>
 		</div>
 	</div>
