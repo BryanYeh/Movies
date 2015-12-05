@@ -33,6 +33,9 @@ Router::any('rating/(:any)/(:num)', 'Controllers\Movies@rating');
 Router::any('language/(:any)', 'Controllers\Movies@language');
 Router::any('language/(:any)/(:num)', 'Controllers\Movies@language');
 
+Router::any('genre/(:any)', 'Controllers\Movies@genre');
+Router::any('genre/(:any)/(:num)', 'Controllers\Movies@genre');
+
 Router::any('movie/(:any)','Controllers\Movies@movie');
 
 Router::any('actors','Controllers\Selection@actor');

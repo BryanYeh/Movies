@@ -37,7 +37,8 @@ class Movies extends Controller
         $data['pages']=$movies->getMoviePages();
         $data['title'] = "Movies Page ".$page." of ".$data['pages'];
         $data['movies'] = $movieList;
-
+        $data['header'] = "Movies";
+        $data['link'] = "movies/";
         $this->renderViews($data);
     }
 
@@ -65,7 +66,38 @@ class Movies extends Controller
 
         $data['pages'] = $movies->getYearPages($year);
         $data['movies'] = $movieList;
+        $data['title'] = "Years Page ".$page." of ".$data['pages'];
+        $data['header'] = "Year: ".$year;
+        $this->renderViews($data);
+    }
 
+    /**
+     * Define movie by genre and load views
+     *
+     * @param string $genre movie year ex. 1999
+     * @param int $page page number
+     */
+    public function genre($genre,$page=1)
+    {
+        $genre = str_replace(" ", "", strip_tags($genre));
+        if($genre=="" || intval($page)<1)
+            Error::error404();
+
+        $data['page'] = $page;
+        $data['genre'] = $genre;
+
+
+        $movies = new MovieList();
+
+        $movieList = $movies->getGenreList($genre,$page);
+
+        if(sizeof($movieList)<1)
+            Error::error404();
+
+        $data['pages'] = $movies->getGenrePages($genre);
+        $data['movies'] = $movieList;
+        $data['title'] = "Years Page ".$page." of ".$data['pages'];
+        $data['header'] = "Genre: ".$genre;
         $this->renderViews($data);
     }
 
@@ -92,7 +124,8 @@ class Movies extends Controller
 
         $data['pages'] = $movies->getActorPages($actor);
         $data['movies'] = $movieList;
-
+        $data['title'] = "Actors Page ".$page." of ".$data['pages'];
+        $data['header'] = "Actors: ".$actor;
 
         $this->renderViews($data);
     }
@@ -120,6 +153,8 @@ class Movies extends Controller
 
         $data['pages'] = $movies->getCountryPages($country);
         $data['movies'] = $movieList;
+        $data['title'] = "Country of Origin Page ".$page." of ".$data['pages'];
+        $data['header'] = "Country of Origin: ".$country;
 
         $this->renderViews($data);
     }
@@ -147,6 +182,8 @@ class Movies extends Controller
 
         $data['pages'] = $movies->getRatingPages($rating);
         $data['movies'] = $movieList;
+        $data['title'] = "Ratings Page ".$page." of ".$data['pages'];
+        $data['header'] = "Rating: ".$rating;
 
         $this->renderViews($data);
     }
@@ -174,6 +211,8 @@ class Movies extends Controller
 
         $data['pages'] = $movies->getLanguagePages($language);
         $data['movies'] = $movieList;
+        $data['title'] = "Languages Page ".$page." of ".$data['pages'];
+        $data['header'] = "Language";
 
         $this->renderViews($data);
 
@@ -199,6 +238,7 @@ class Movies extends Controller
         foreach($info[0] as $k => $v){
             $data[$k] = $v;
         }
+
         $this->renderViews($data,"movie");
 //
     }

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-12">
-        <h1>Movies <small>Page<?php echo $data['page'].' of '.$data['pages']; ?></small></h1>
+        <h1><?php echo $data['header']; ?>  <small>Page <?php echo $data['page'].' of '.$data['pages']; ?></small></h1>
     </div>
 </div>
 

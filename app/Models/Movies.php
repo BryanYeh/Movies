@@ -9,7 +9,7 @@ use Core\Model;
  */
 class Movies extends Model
 {
-    private $moviesql, $yearsql, $actorsql, $countrysql, $languagesql, $ratingsql;
+    private $moviesql, $yearsql, $actorsql, $countrysql, $languagesql, $ratingsql, $genresql;
 
     /**
      * Call the parent construct
@@ -36,6 +36,15 @@ class Movies extends Model
                                     INNER JOIN ' . PREFIX . 'actor
                                     ON ' . PREFIX . 'actor.id = ' . PREFIX . 'movie_actor.actor_id
                                     WHERE  ' . PREFIX . 'actor.actorseo=:actor';
+        $this->genresql = 'SELECT ' . PREFIX . 'movie.title,
+                                          ' . PREFIX . 'movie.description,
+                                          ' . PREFIX . 'movie.seoname
+                                    FROM  ' . PREFIX . 'movie_genre
+                                    INNER JOIN  ' . PREFIX . 'movie
+                                    ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_genre.movie_id
+                                    INNER JOIN ' . PREFIX . 'genre
+                                    ON ' . PREFIX . 'genre.id = ' . PREFIX . 'movie_genre.genre_id
+                                    WHERE  ' . PREFIX . 'genre.seogenre=:genre';
         $this->countrysql  = 'SELECT ' . PREFIX . 'movie.title,
                                           ' . PREFIX . 'movie.description,
                                           ' . PREFIX . 'movie.seoname
@@ -179,6 +188,29 @@ class Movies extends Model
     }
 
     /**
+     * Gets movies by genre
+     *
+     * @param string $genre genre with hypens not spaces
+     * @param int $page current page number
+     *
+     * @return list of movies
+     */
+    public function getGenreList($genre, $page)
+    {
+        return $this->db->select($this->genresql. ' LIMIT ' . ($page * 20 - 20) . ',20', array(":genre" => $genre));
+    }
+
+    /*
+     * Gets number of pages for movies by grenre
+     *
+     * @return int number of pages total
+     */
+    public function getGenrePages($genre)
+    {
+        return intval(ceil(sizeof($this->db->select($this->genresql, array(":genre" => $genre))) / 20.0));
+    }
+
+    /**
      * Gets movies by language
      *
      * @param string $language language with hyphens not spaces
@@ -188,7 +220,7 @@ class Movies extends Model
      */
     public function getLanguageList($language, $page)
     {
-        return $this->db->select($this->language.' LIMIT ' . ($page * 20 - 20) . ',20', array(":language" => $language));
+        return $this->db->select($this->languagesql.' LIMIT ' . ($page * 20 - 20) . ',20', array(":language" => $language));
     }
 
     /*
