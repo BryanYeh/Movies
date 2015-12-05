@@ -23,7 +23,8 @@ class Selection extends Controller
         $selection = new Selections();
         $selectionList = $selection->getActors();
         $data['selection'] = $selectionList;
-        $this->renderViews($data);
+        $data['title'] = "Actors";
+        $this->renderViews($data,"actors");
     }
 
     /** Define genres */
@@ -32,7 +33,8 @@ class Selection extends Controller
         $selection = new Selections();
         $selectionList = $selection->getGenres();
         $data['selection'] = $selectionList;
-        $this->renderViews($data);
+        $data['title'] = "Genres";
+        $this->renderViews($data,"genres");
     }
 
     /** Define languages */
@@ -41,7 +43,8 @@ class Selection extends Controller
         $selection = new Selections();
         $selectionList = $selection->getLanguages();
         $data['selection'] = $selectionList;
-        $this->renderViews($data);
+        $data['title'] = "Languages";
+        $this->renderViews($data,"languages");
     }
 
     /** Define country of origin */
@@ -50,7 +53,8 @@ class Selection extends Controller
         $selection = new Selections();
         $selectionList = $selection->getOrigin();
         $data['selection'] = $selectionList;
-        $this->renderViews($data);
+        $data['title'] = "Country of Origin";
+        $this->renderViews($data,"origins");
     }
 
     /** Define years */
@@ -59,7 +63,8 @@ class Selection extends Controller
         $selection = new Selections();
         $selectionList = $selection->getYears();
         $data['selection'] = $selectionList;
-        $this->renderViews($data);
+        $data['title'] = "Years";
+        $this->renderViews($data,"years");
     }
 
     /** Define ratings */
@@ -68,7 +73,8 @@ class Selection extends Controller
         $selection = new Selections();
         $selectionList = $selection->getRatings();
         $data['selection'] = $selectionList;
-        $this->renderViews($data);
+        $data['title'] = "Ratings";
+        $this->renderViews($data,"ratings");
     }
 
     /**
@@ -76,9 +82,9 @@ class Selection extends Controller
      *
      * @param array $data array of data
      */
-    private function renderViews($data){
+    private function renderViews($data,$selection="selection"){
         View::renderTemplate('header', $data);
-        View::render('movies/selection', $data);
+        View::render('movies/'.$selection, $data);
 //        View::renderTemplate('footer', $data);
     }
 }
