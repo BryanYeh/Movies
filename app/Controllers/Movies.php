@@ -68,6 +68,7 @@ class Movies extends Controller
         $data['movies'] = $movieList;
         $data['title'] = "Years Page ".$page." of ".$data['pages'];
         $data['header'] = "Year: ".$year;
+        $data['link'] = "year/".$year."/";
         $this->renderViews($data);
     }
 
@@ -98,6 +99,7 @@ class Movies extends Controller
         $data['movies'] = $movieList;
         $data['title'] = "Years Page ".$page." of ".$data['pages'];
         $data['header'] = "Genre: ".$genre;
+        $data['link'] = "genre/".$genre."/";
         $this->renderViews($data);
     }
 
@@ -126,6 +128,7 @@ class Movies extends Controller
         $data['movies'] = $movieList;
         $data['title'] = "Actors Page ".$page." of ".$data['pages'];
         $data['header'] = "Actors: ".$actor;
+        $data['link'] = "actor/".$actor."/";
 
         $this->renderViews($data);
     }
@@ -155,7 +158,7 @@ class Movies extends Controller
         $data['movies'] = $movieList;
         $data['title'] = "Country of Origin Page ".$page." of ".$data['pages'];
         $data['header'] = "Country of Origin: ".$country;
-
+        $data['link'] = "origin/".$country."/";
         $this->renderViews($data);
     }
 
@@ -184,7 +187,7 @@ class Movies extends Controller
         $data['movies'] = $movieList;
         $data['title'] = "Ratings Page ".$page." of ".$data['pages'];
         $data['header'] = "Rating: ".$rating;
-
+        $data['link'] = "rating/".$rating."/";
         $this->renderViews($data);
     }
 
@@ -213,7 +216,7 @@ class Movies extends Controller
         $data['movies'] = $movieList;
         $data['title'] = "Languages Page ".$page." of ".$data['pages'];
         $data['header'] = "Language";
-
+        $data['link'] = "language/".$language."/";
         $this->renderViews($data);
 
     }

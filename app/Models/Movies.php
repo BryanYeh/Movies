@@ -70,7 +70,8 @@ class Movies extends Model
                                     INNER JOIN  ' . PREFIX . 'movie
                                     ON  ' . PREFIX . 'movie.id =  ' . PREFIX . 'movie_rating.movie_id
                                     INNER JOIN ' . PREFIX . 'rating
-                                    ON ' . PREFIX . 'rating.id = ' . PREFIX . 'movie_rating.rating_id';
+                                    ON ' . PREFIX . 'rating.id = ' . PREFIX . 'movie_rating.rating_id
+                                    WHERE  ' . PREFIX . 'rating.seorating=:rating';
     }
 
     /**

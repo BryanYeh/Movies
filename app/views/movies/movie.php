@@ -39,7 +39,7 @@
                 echo ", ";
             }
             ?>
-            <a href="<?php echo DIR."genre/".$langsseo[$i];?>">
+            <a href="<?php echo DIR."language/".$langsseo[$i];?>">
                 <?php echo $languages[$i];?>
             </a>
             <?php

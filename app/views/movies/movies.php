@@ -23,7 +23,7 @@
 <nav>
     <ul class="pagination">
         <?php for($i=1; $i<=$data['pages']; $i++){ ?>
-        <li><a href="<?php echo DIR."movies/".$i;?>"><?php echo $i;?></a></li>
+        <li><a href="<?php echo DIR.$data['link'].$i;?>"><?php echo $i;?></a></li>
         <?php } ?>
     </ul>
 </nav>
