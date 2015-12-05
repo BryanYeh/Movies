@@ -39,17 +39,29 @@ $hooks = Hooks::get();
 //hook for running code after body tag
 $hooks->run('afterBody');
 ?>
-
-<!--TODO:navbar-->
-<nav class="navbar">
-	<ul>
-		<li><a href="<?php echo DIR;?>movies/">Movies</a></li>
-		<li><a href="<?php echo DIR;?>actors">Actor</a></li>
-		<li><a href="<?php echo DIR;?>genres">Genre</a></li>
-		<li><a href="<?php echo DIR;?>languages">Language</a></li>
-		<li><a href="<?php echo DIR;?>origin">Country of Origin</a></li>
-		<li><a href="<?php echo DIR;?>years">Year</a></li>
-		<li><a href="<?php echo DIR;?>ratings">Rating</a></li>
-	</ul>
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="<?php echo DIR;?>">Mini IMDB</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="<?php echo DIR;?>movies/">Movies</a></li>
+				<li><a href="<?php echo DIR;?>actors">Actor</a></li>
+				<li><a href="<?php echo DIR;?>genres">Genre</a></li>
+				<li><a href="<?php echo DIR;?>languages">Language</a></li>
+				<li><a href="<?php echo DIR;?>origin">Country of Origin</a></li>
+				<li><a href="<?php echo DIR;?>years">Year</a></li>
+				<li><a href="<?php echo DIR;?>ratings">Rating</a></li>
+			</ul>
+		</div>
+	</div>
 </nav>
+
 <div class="container">

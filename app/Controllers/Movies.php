@@ -255,6 +255,6 @@ class Movies extends Controller
     private function renderViews($data,$view='movies'){
         View::renderTemplate('header', $data);
         View::render('movies/'.$view, $data);
-//        View::renderTemplate('footer', $data);
+        View::renderTemplate('footer', $data);
     }
 }

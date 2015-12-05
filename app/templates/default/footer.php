@@ -26,6 +26,12 @@ $hooks->run('js');
 //hook for plugging in code into the footer
 $hooks->run('footer');
 ?>
+<div class="container">
+<hr>
 
+<footer>
+	A simple mini IMDB built with SimpleMVCFramework 2.2.
+</footer>
+</div>
 </body>
 </html>

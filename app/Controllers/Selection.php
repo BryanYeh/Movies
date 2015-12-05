@@ -85,6 +85,6 @@ class Selection extends Controller
     private function renderViews($data,$selection="selection"){
         View::renderTemplate('header', $data);
         View::render('movies/'.$selection, $data);
-//        View::renderTemplate('footer', $data);
+        View::renderTemplate('footer', $data);
     }
 }
