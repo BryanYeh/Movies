@@ -51,7 +51,7 @@ Router::any('admin/movies/(:num)', 'Controllers\admin\Movies@index');
 
 Router::any('admin/movie/add','Controllers\admin\Movies@add');
 
-Router::post('admin/movie/delete/(:num)', 'Controllers\admin\Movies@delete');
+Router::any('admin/movie/delete/(:num)', 'Controllers\admin\Movies@remove');
 
 /** Module routes. */
 $hooks = Hooks::get();

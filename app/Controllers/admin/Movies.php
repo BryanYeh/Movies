@@ -173,8 +173,9 @@ class Movies extends Controller
         View::renderTemplate('footer', $data);
     }
 
-    public function delete($id)
+    public function remove($id)
     {
-        $this->movies->insert('movie', ['id'=>$id]);
+        $this->movies->remove('movie', ['id'=>$id]);
+        Url::redirect("admin/movies");
     }
 }

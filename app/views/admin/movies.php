@@ -1,5 +1,6 @@
 <div class="row">
     <div class="col-xs-12">
+        <h1>Movies <small>Page <?php echo $data['page']; ?> of <?php echo $data['pages']; ?></small></h1>
         <a href="<?php echo DIR;?>admin/movie/add" class="btn btn-warning">Add Movie</a>
     </div>
 </div>
