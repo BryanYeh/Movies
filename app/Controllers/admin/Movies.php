@@ -39,8 +39,11 @@ class Movies extends Controller
 
         $data['pages']=$this->movies->getMoviePages();
         $data['movies'] = $movieList;
+        $data['title'] = "Movies";
 
+        View::render('admin/header', $data);
         View::render('admin/movies', $data);
+        View::renderTemplate('footer', $data);
     }
 
     public function add()
@@ -164,7 +167,10 @@ class Movies extends Controller
         $data['years'] = $this->selections->getYears();
         $data['success'] = $addedSuccess ? "Movie added" : "";
 
+
+        View::render('admin/header', $data);
         View::render('admin/addmovie', $data);
+        View::renderTemplate('footer', $data);
     }
 
     public function delete($id)

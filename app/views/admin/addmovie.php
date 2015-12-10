@@ -1,69 +1,87 @@
 <?php
-    echo $data['success'];
+echo $data['success'];
 ?>
 <form method="post">
-    Title:
-    <input type="text" name="title"><br>
+    <div class="form-group">
+        <label>Title</label>
+        <input required class="form-control" type="text" name="title">
+    </div>
 
-    SEO:
-    <input type="text" name="seo"><br>
+    <div class="form-group">
+        <label>SEO</label>
+        <input required class="form-control" type="text" name="seo">
+    </div>
 
-    Description:
-    <textarea name="description"></textarea><br>
+    <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-control" name="description" rows="7"></textarea>
+    </div>
 
-    Actor:
-    <select name="actor[]" multiple>
-        <?php
-        foreach ($data['actors'] as $year) {
-            echo '<option value="' . $year->id . '">' . $year->actor . '</option>';
-        }
-        ?>
-    </select><br>
+    <div class="form-group">
+        <label>Actor</label>
+        <select required class="form-control" name="actor[]" multiple>
+            <?php
+            foreach ($data['actors'] as $year) {
+                echo '<option value="' . $year->id . '">' . $year->actor . '</option>';
+            }
+            ?>
+        </select>
+    </div>
 
-    Genre:
-    <select name="genre[]" multiple>
-        <?php
-        foreach ($data['genres'] as $genre) {
-            echo '<option value="' . $genre->id . '">' . $genre->genre . '</option>';
-        }
-        ?>
-    </select><br>
+    <div class="form-group">
+        <label>Genre</label>
+        <select required class="form-control" name="genre[]" multiple>
+            <?php
+            foreach ($data['genres'] as $genre) {
+                echo '<option value="' . $genre->id . '">' . $genre->genre . '</option>';
+            }
+            ?>
+        </select>
+    </div>
 
-    Rating:
-    <select name="rating">
-        <?php
-        foreach ($data['ratings'] as $rating) {
-            echo '<option value="' . $rating->id . '">' . $rating->rating . '</option>';
-        }
-        ?>
-    </select><br>
+    <div class="form-group">
+        <label>Rating</label>
+        <select required class="form-control" name="rating">
+            <?php
+            foreach ($data['ratings'] as $rating) {
+                echo '<option value="' . $rating->id . '">' . $rating->rating . '</option>';
+            }
+            ?>
+        </select>
+    </div>
 
-    Language:
-    <select name="language[]" multiple>
-        <?php
-        foreach ($data['languages'] as $language) {
-            echo '<option value="' . $language->id . '">' . $language->lang . '</option>';
-        }
-        ?>
-    </select><br>
+    <div class="form-group">
+        <label>Language</label>
+        <select required class="form-control" name="language[]" multiple>
+            <?php
+            foreach ($data['languages'] as $language) {
+                echo '<option value="' . $language->id . '">' . $language->lang . '</option>';
+            }
+            ?>
+        </select>
+    </div>
 
-    Year:
-    <select name="year">
-        <?php
-        foreach ($data['years'] as $year) {
-            echo '<option value="' . $year->id . '">' . $year->yr . '</option>';
-        }
-        ?>
-    </select><br>
+    <div class="form-group">
+        <label>Year</label>
+        <select required class="form-control" name="year">
+            <?php
+            foreach ($data['years'] as $year) {
+                echo '<option value="' . $year->id . '">' . $year->yr . '</option>';
+            }
+            ?>
+        </select>
+    </div>
 
-    Country of Origin:
-    <select name="origin">
-        <?php
-        foreach ($data['origins'] as $origin) {
-            echo '<option value="' . $origin->id . '">' . $origin->country . '</option>';
-        }
-        ?>
-    </select><br>
+    <div class="form-group">
+        <label>Country of Origin</label>
+        <select required class="form-control" name="origin">
+            <?php
+            foreach ($data['origins'] as $origin) {
+                echo '<option value="' . $origin->id . '">' . $origin->country . '</option>';
+            }
+            ?>
+        </select>
+    </div>
 
-    <button type="submit" name="submit">Submit</button>
+    <button class="form-control btn btn-success" type="submit" name="submit">Submit</button>
 </form>
