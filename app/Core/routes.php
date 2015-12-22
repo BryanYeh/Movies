@@ -48,10 +48,15 @@ Router::any('ratings','Controllers\Selection@rating');
 /** Define Admin routes. */
 Router::any('admin/movies', 'Controllers\admin\Movies@index');
 Router::any('admin/movies/(:num)', 'Controllers\admin\Movies@index');
-
 Router::any('admin/movie/add','Controllers\admin\Movies@add');
-
 Router::any('admin/movie/delete/(:num)', 'Controllers\admin\Movies@remove');
+Router::any('admin/movie/edit/(:any)', 'Controllers\admin\Movies@edit');
+
+/** Admin Actors */
+Router::any('admin/actors', 'Controllers\admin\Movies@index');
+Router::any('admin/actors/(:num)', 'Controllers\admin\Movies@index');
+Router::any('admin/actor/add','Controllers\admin\Movies@add');
+Router::any('admin/actor/delete/(:num)', 'Controllers\admin\Movies@remove');
 
 /** Module routes. */
 $hooks = Hooks::get();
